@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Letícia & Henry — 2 Anos e 1 Mês</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<style>
+/* ==========================================================================
+   TOKENS
+   ========================================================================== */
+:root {
+  --black: #0a0707;
+  --black-deep: #050303;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --border: rgba(232, 60, 82, 0.22);
+  --border-strong: rgba(232, 60, 82, 0.4);
+  --red: #b8142f;
+  --red-bright: #e8344f;
+  --red-deep: #5c0e1d;
+  --ivory: #f4e9e4;
+  --muted: #b79b96;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Manrope', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--black);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(184, 20, 47, 0.18), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(184, 20, 47, 0.1), transparent);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+::selection { background: var(--red); color: var(--ivory); }
+
+button { font-family: inherit; cursor: pointer; }
+
+/* custom scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--black-deep); }
+::-webkit-scrollbar-thumb { background: var(--red-deep); border-radius: 10px; border: 2px solid var(--black-deep); }
+::-webkit-scrollbar-thumb:hover { background: var(--red); }
+* { scrollbar-color: var(--red-deep) var(--black-deep); scrollbar-width: thin; }
+
+/* film-grain texture overlay, used inside intro and once fixed over the page */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#intro-screen .grain-overlay { position: absolute; z-index: 1; }
+
+/* ambient embers */
+.embers { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+
+.ember {
+  position: absolute;
+  bottom: -10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--red-bright);
+  box-shadow: 0 0 6px 1px rgba(232, 52, 79, 0.8);
+  opacity: 0;
+  animation: emberRise linear infinite;
+}
+
+@keyframes emberRise {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-110vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+
+/* ==========================================================================
+   INTRO
+   ========================================================================== */
+#intro-screen {
+  position: fixed;
+  inset: 0;
+  background-color: var(--black-deep);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.7s ease;
+  padding: 1.5rem;
+}
+
+.intro-noise {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 30%, rgba(184, 20, 47, 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 560px;
+}
+
+.pulse-line { width: 200px; margin: 0 auto 1.5rem; opacity: 0.75; }
+.pulse-line svg { width: 100%; height: 32px; }
+.pulse-line path {
+  fill: none;
+  stroke: var(--red-bright);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(232, 52, 79, 0.6));
+}
+
+.intro-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.intro-names {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 8vw, 4.2rem);
+  font-weight: 500;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  color: var(--ivory);
+}
+
+.intro-names .amp {
+  font-style: italic;
+  color: var(--red-bright);
+  font-size: 0.7em;
+}
+
+.intro-line {
+  margin: 1.4rem 0 2.2rem;
+  color: var(--muted);
+  font-size: 1.02rem;
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+.btn-primary {
+  position: relative;
+  background: var(--red);
+  color: var(--ivory);
+  border: 1px solid var(--red-bright);
+  padding: 0.9rem 2.4rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  border-radius: 3px;
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.btn-primary span { position: relative; z-index: 1; }
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.btn-primary:hover {
+  background: var(--red-bright);
+  box-shadow: 0 0 24px rgba(232, 52, 79, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-primary:hover::before { transform: translateX(120%); }
+
+/* ==========================================================================
+   HERO STATS + ORNAMENT
+   ========================================================================== */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 2.2rem;
+  flex-wrap: wrap;
+}
+
+.stat { display: flex; flex-direction: column; align-items: center; }
+
+.stat-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--red-bright);
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 26px;
+  background: var(--border-strong);
+}
+
+.ornament { max-width: 240px; margin: 2.8rem auto; opacity: 0.85; }
+.ornament svg { width: 100%; height: auto; overflow: visible; }
+
+.ornament-line {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.ornament-heart {
+  fill: var(--red-bright);
+  filter: drop-shadow(0 0 5px rgba(232, 52, 79, 0.6));
+}
+
+/* ==========================================================================
+   FLOATING CONTROLS
+   ========================================================================== */
+.floating-controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.float-btn {
+  background: rgba(10, 7, 7, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-strong);
+  color: var(--ivory);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  transition: all 0.25s;
+}
+
+.float-btn[aria-pressed="true"] {
+  background: var(--red);
+  border-color: var(--red-bright);
+}
+
+/* ==========================================================================
+   SIDE NAV
+   ========================================================================== */
+.side-nav {
+  position: fixed;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.side-nav a {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.side-nav a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: rgba(10, 7, 7, 0.85);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.side-nav a:hover::after { opacity: 1; }
+
+.side-nav a.active {
+  background: var(--red-bright);
+  box-shadow: 0 0 8px rgba(232, 52, 79, 0.7);
+  transform: scale(1.3);
+}
+
+@media (max-width: 900px) {
+  .side-nav { display: none; }
+}
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+.main-wrapper { position: relative; z-index: 1; padding: 4rem 1.25rem 2rem; }
+.container { max-width: 860px; margin: 0 auto; }
+
+.hero { text-align: center; margin-bottom: 3.5rem; }
+
+.eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--red-bright);
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 9vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--ivory);
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--red-bright);
+}
+
+.hero-sub {
+  margin-top: 1.4rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1rem;
+}
+
+.panel {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2.2rem;
+  margin-bottom: 3rem;
+}
+
+.block { margin-bottom: 3.5rem; }
+
+.block-title {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--ivory);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+.block-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-bottom: 1.6rem;
+}
+
+/* ==========================================================================
+   COUNTER
+   ========================================================================== */
+.counter-panel { text-align: center; }
+
+.panel-kicker {
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.6rem;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.timer-item { display: flex; flex-direction: column; align-items: center; min-width: 58px; }
+
+.timer-number {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--ivory);
+}
+
+.timer-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.timer-pulse { width: 40px; opacity: 0.6; margin-top: -0.8rem; }
+.timer-pulse svg { width: 100%; height: 20px; }
+.timer-pulse path {
+  fill: none;
+  stroke: var(--red-bright);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.panel-note { margin-top: 1.6rem; color: var(--muted); font-size: 0.85rem; }
+
+.next-anniversary {
+  margin-top: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  font-size: 0.8rem;
+  color: var(--rose, var(--muted));
+}
+
+.next-anniversary-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red-bright);
+  box-shadow: 0 0 6px rgba(232, 52, 79, 0.8);
+  animation: dotPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ==========================================================================
+   VAULT
+   ========================================================================== */
+.vault-panel { max-width: 420px; margin-left: auto; margin-right: auto; text-align: center; }
+
+.vault-display {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 22px;
+  color: var(--ivory);
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.key-btn {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  color: var(--ivory);
+  font-size: 1.15rem;
+  padding: 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.key-btn:hover { border-color: var(--red-bright); background: rgba(184, 20, 47, 0.18); }
+
+.key-btn-ghost { font-size: 0.72rem; letter-spacing: 0.05em; }
+.key-btn-accent { background: var(--red); border-color: var(--red-bright); font-size: 0.8rem; letter-spacing: 0.05em; }
+
+.vault-msg { margin-top: 14px; font-size: 0.85rem; min-height: 1.2em; color: var(--red-bright); }
+
+.vault-display.shake { animation: shake 0.4s ease; border-color: var(--red-bright); }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.vault-unlocked-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--red-bright);
+  margin-bottom: 0.8rem;
+}
+
+.vault-secret {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--ivory);
+  margin-bottom: 1.4rem;
+}
+
+.vault-photo-slot {
+  border: 1px dashed var(--border-strong);
+  border-radius: 10px;
+  padding: 2.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   COUPONS (TICKET STYLE)
+   ========================================================================== */
+.ticket {
+  max-width: 460px;
+  margin: 0 auto 1.6rem;
+  display: flex;
+  background: linear-gradient(160deg, var(--surface-strong), var(--surface));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.ticket-main {
+  flex: 1;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ticket-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--red-bright);
+}
+
+.ticket .coupon-display {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--ivory);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.ticket .coupon-display.pop { animation: couponPop 0.4s ease; }
+
+@keyframes couponPop {
+  0% { transform: scale(0.96); }
+  60% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.ticket-perf {
+  position: relative;
+  width: 0;
+  border-left: 2px dashed var(--border-strong);
+}
+
+.ticket-perf::before, .ticket-perf::after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--black);
+  border: 1px solid var(--border);
+}
+
+.ticket-perf::before { top: -9px; }
+.ticket-perf::after { bottom: -9px; }
+
+.ticket-stub {
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(184, 20, 47, 0.12);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--red-bright);
+  font-size: 1rem;
+}
+
+.coupon-action { text-align: center; }
+
+@media (max-width: 480px) {
+  .ticket { flex-direction: column; }
+  .ticket-perf { width: auto; height: 0; border-left: none; border-top: 2px dashed var(--border-strong); }
+  .ticket-perf::before { left: -9px; top: -9px; }
+  .ticket-perf::after { left: auto; right: -9px; top: -9px; bottom: auto; }
+  .ticket-stub { width: auto; flex-direction: row; padding: 10px; }
+}
+
+/* ==========================================================================
+   MAPA AFETIVO
+   ========================================================================== */
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.map-pin {
+  text-align: center;
+  padding: 1.6rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.map-pin:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+
+.map-pin-icon { font-size: 1.5rem; display: block; margin-bottom: 0.6rem; }
+
+.map-pin h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ivory);
+  margin-bottom: 0.3rem;
+}
+
+.map-pin p { font-size: 0.8rem; color: var(--muted); }
+
+/* ==========================================================================
+   REASONS
+   ========================================================================== */
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.reason-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.8rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.reason-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+}
+
+.reason-mark {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--red-bright);
+  font-size: 0.95rem;
+}
+
+.reason-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin: 0.5rem 0 0.6rem;
+  color: var(--ivory);
+}
+
+.reason-card p { font-size: 0.9rem; color: var(--muted); }
+
+/* ==========================================================================
+   TIMELINE
+   ========================================================================== */
+.timeline {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  margin-left: -0.5px;
+  background: linear-gradient(var(--red-deep), var(--border-strong), var(--red-deep));
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 0 2.4rem 2.6rem;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-item.side-left { left: 0; text-align: right; }
+.timeline-item.side-right { left: 50%; text-align: left; }
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red-bright);
+  box-shadow: 0 0 0 4px rgba(232, 52, 79, 0.18), 0 0 10px rgba(232, 52, 79, 0.7);
+}
+
+.timeline-item.side-left::before { right: -5px; }
+.timeline-item.side-right::before { left: -5px; }
+
+.timeline-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1.7rem;
+  display: inline-block;
+  text-align: left;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.timeline-card:hover { border-color: var(--border-strong); }
+
+.timeline-card-final { border-color: var(--border-strong); background: var(--surface-strong); }
+
+.timeline-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--red-bright);
+}
+
+.timeline-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0.35rem 0 0.5rem;
+  color: var(--ivory);
+}
+
+.timeline-item p { font-size: 0.92rem; color: var(--muted); max-width: 340px; }
+
+@media (max-width: 700px) {
+  .timeline::before { left: 6px; }
+  .timeline-item, .timeline-item.side-left, .timeline-item.side-right {
+    width: 100%;
+    left: 0;
+    text-align: left;
+    padding: 0 0 2.2rem 2.4rem;
+  }
+  .timeline-item.side-left::before, .timeline-item.side-right::before { left: 1px; }
+  .timeline-item p { max-width: 100%; }
+}
+
+/* ==========================================================================
+   GALLERY
+   ========================================================================== */
+.carousel-wrapper { position: relative; overflow: hidden; padding: 0; }
+
+.carousel-container { position: relative; height: 380px; }
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide.active { opacity: 1; position: relative; }
+
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(184, 20, 47, 0.15), rgba(0, 0, 0, 0.3));
+  border-radius: 14px 14px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+.photo-placeholder::before {
+  content: '♡';
+  font-size: 1.8rem;
+  color: var(--red-bright);
+  opacity: 0.6;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  padding: 18px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ivory);
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 7, 7, 0.6);
+  color: var(--ivory);
+  border: 1px solid var(--border-strong);
+  font-size: 1.2rem;
+  padding: 8px 13px;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.carousel-nav.prev { left: 14px; }
+.carousel-nav.next { right: 14px; }
+
+.dots-container { text-align: center; padding: 14px 0; background: rgba(0,0,0,0.35); }
+
+.dot {
+  height: 8px;
+  width: 8px;
+  margin: 0 4px;
+  background-color: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dot.active { background-color: var(--red-bright); }
+
+/* ==========================================================================
+   ENVELOPE / LETTER
+   ========================================================================== */
+.envelope-wrapper { max-width: 480px; margin: 0 auto; cursor: pointer; }
+
+.envelope {
+  background: linear-gradient(160deg, var(--red-deep), #2a0710);
+  height: 170px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border-strong);
+  transition: all 0.4s;
+}
+
+.envelope-seal {
+  font-size: 1.7rem;
+  background: var(--red-bright);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ivory);
+  box-shadow: 0 4px 14px rgba(232, 52, 79, 0.45);
+}
+
+.letter {
+  display: none;
+  background: #f4ece4;
+  color: #2a1414;
+  padding: 2.2rem;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  line-height: 1.7;
+}
+
+.envelope-wrapper.open .envelope { display: none; }
+.envelope-wrapper.open .letter { display: block; animation: fadeIn 0.7s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.letter-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  margin-bottom: 0.6rem;
+}
+
+.letter h3 { font-size: 1.4rem; font-weight: 500; margin-bottom: 1.1rem; }
+.letter p { margin-bottom: 0.9rem; font-size: 1rem; }
+
+.letter-signature {
+  font-style: italic;
+  text-align: right;
+  margin-top: 1.2rem;
+  color: var(--red);
+}
+
+/* ==========================================================================
+   QUIZ
+   ========================================================================== */
+.quiz-panel { text-align: center; }
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--ivory);
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.quiz-opt-btn {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  color: var(--ivory);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  transition: all 0.2s;
+}
+
+.quiz-opt-btn:hover:not(:disabled) { border-color: var(--red-bright); background: rgba(184, 20, 47, 0.15); }
+.quiz-opt-btn:disabled { cursor: default; }
+
+.quiz-feedback {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: 25px;
+}
+
+/* ==========================================================================
+   PETALS
+   ========================================================================== */
+.petal {
+  position: fixed;
+  top: -20px;
+  pointer-events: none;
+  z-index: 999;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(105vh) rotate(360deg); }
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 2.5rem 0 1rem;
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+button:focus-visible, .key-btn:focus-visible, .dot:focus-visible {
+  outline: 2px solid var(--red-bright);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 640px) {
+  .timer { gap: 4px; }
+  .timer-item { min-width: 48px; }
+  .timer-number { font-size: 1.9rem; }
+  .timer-pulse { width: 22px; }
+  .panel, .letter { padding: 1.5rem; }
+  .keypad { gap: 8px; }
+  .key-btn { padding: 12px; font-size: 1rem; }
+}
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro-screen">
+  <div class="intro-noise"></div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="embers" id="introEmbers" aria-hidden="true"></div>
+  <div class="intro-content">
+    <div class="pulse-line" aria-hidden="true">
+      <svg viewBox="0 0 300 40" preserveAspectRatio="none">
+        <path d="M0,20 L90,20 L105,4 L120,36 L135,20 L300,20" />
+      </svg>
+    </div>
+    <p class="intro-eyebrow">seis de outubro, dois mil e vinte e quatro</p>
+    <h1 class="intro-names"><span>Letícia</span><span class="amp">&amp;</span><span>Henry</span></h1>
+    <p class="intro-line">Dois anos e um mês de escolher um ao outro, todos os dias.</p>
+    <button id="startBtn" class="btn-primary">
+      <span>entrar</span>
+    </button>
+  </div>
+</div>
+
+<div class="grain-overlay" aria-hidden="true"></div>
+<div id="particles-container"></div>
+
+<div class="floating-controls">
+  <button class="float-btn" id="petalsToggleBtn" aria-pressed="false">🌹 pétalas</button>
+</div>
+
+<nav class="side-nav" id="sideNav" aria-label="navegação das seções">
+  <a href="#contador" data-label="contador"></a>
+  <a href="#cofre" data-label="cofre"></a>
+  <a href="#cupons" data-label="cupons"></a>
+  <a href="#motivos" data-label="motivos"></a>
+  <a href="#mapa" data-label="mapa"></a>
+  <a href="#historia" data-label="história"></a>
+  <a href="#galeria" data-label="galeria"></a>
+  <a href="#carta" data-label="carta"></a>
+  <a href="#quiz" data-label="quiz"></a>
+</nav>
+
+<div class="main-wrapper" id="mainContent">
+  <div class="container">
+
+    <header class="hero">
+      <p class="eyebrow">nossa história, em números e memórias</p>
+      <h1 class="hero-title">dois anos e um mês<br><em>de nós</em></h1>
+      <p class="hero-sub">760 dias — praias, várias chácaras, varias histórias e a certeza de estar no lugar certo.</p>
+
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">760+</span><span class="stat-label">dias</span></div>
+        <span class="stat-divider" aria-hidden="true"></span>
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">capítulos</span></div>
+        <span class="stat-divider" aria-hidden="true"></span>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">só escolha</span></div>
+      </div>
+    </header>
+
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 240 40" preserveAspectRatio="xMidYMid meet">
+        <path class="ornament-line" d="M0,20 C40,20 40,6 60,6 C80,6 80,20 100,20 L108,20" />
+        <path class="ornament-heart" d="M120,28 C112,20 108,12 113,7 C117,3 122,5 120,10 C118,5 123,3 127,7 C132,12 128,20 120,28 Z" />
+        <path class="ornament-line" d="M132,20 L140,20 C160,20 160,6 180,6 C200,6 200,20 240,20" />
+      </svg>
+    </div>
+
+    <section class="panel counter-panel" id="contador">
+      <p class="panel-kicker">estamos juntos há</p>
+      <div class="timer">
+        <div class="timer-item">
+          <span class="timer-number" id="days">000</span>
+          <span class="timer-label">dias</span>
+        </div>
+        <div class="timer-pulse" aria-hidden="true">
+          <svg viewBox="0 0 60 30"><path d="M0,15 L18,15 L23,3 L29,27 L34,15 L60,15" /></svg>
+        </div>
+        <div class="timer-item">
+          <span class="timer-number" id="hours">00</span>
+          <span class="timer-label">horas</span>
+        </div>
+        <div class="timer-pulse" aria-hidden="true">
+          <svg viewBox="0 0 60 30"><path d="M0,15 L18,15 L23,3 L29,27 L34,15 L60,15" /></svg>
+        </div>
+        <div class="timer-item">
+          <span class="timer-number" id="minutes">00</span>
+          <span class="timer-label">minutos</span>
+        </div>
+        <div class="timer-pulse" aria-hidden="true">
+          <svg viewBox="0 0 60 30"><path d="M0,15 L18,15 L23,3 L29,27 L34,15 L60,15" /></svg>
+        </div>
+        <div class="timer-item">
+          <span class="timer-number" id="seconds">00</span>
+          <span class="timer-label">segundos</span>
+        </div>
+      </div>
+      <p class="panel-note">desde 06 de setembro de 2024, e contando.</p>
+
+      <div class="next-anniversary">
+        <span class="next-anniversary-dot" aria-hidden="true"></span>
+        <span id="nextAnniversaryText">calculando o próximo aniversário…</span>
+      </div>
+    </section>
+
+    <!-- COFRE -->
+    <section class="block" id="cofre">
+      <h2 class="block-title">o cofre</h2>
+      <p class="block-sub">só quem sabe a nossa senha entra aqui dentro.</p>
+
+      <div class="panel vault-panel">
+        <div id="vaultLocked">
+          <div class="vault-display" id="vaultDisplay">‒ ‒ ‒ ‒</div>
+          <div class="keypad">
+            <button class="key-btn" onclick="pressKey('1')">1</button>
+            <button class="key-btn" onclick="pressKey('2')">2</button>
+            <button class="key-btn" onclick="pressKey('3')">3</button>
+            <button class="key-btn" onclick="pressKey('4')">4</button>
+            <button class="key-btn" onclick="pressKey('5')">5</button>
+            <button class="key-btn" onclick="pressKey('6')">6</button>
+            <button class="key-btn" onclick="pressKey('7')">7</button>
+            <button class="key-btn" onclick="pressKey('8')">8</button>
+            <button class="key-btn" onclick="pressKey('9')">9</button>
+            <button class="key-btn key-btn-ghost" onclick="clearVault()">limpar</button>
+            <button class="key-btn" onclick="pressKey('0')">0</button>
+            <button class="key-btn key-btn-accent" onclick="unlockVault()">abrir</button>
+          </div>
+          <p id="vaultMessage" class="vault-msg"></p>
+        </div>
+
+        <div id="vaultUnlocked" class="vault-unlocked" style="display:none;">
+          <p class="vault-unlocked-label">cofre aberto</p>
+          <p class="vault-secret">"eu amo você mais do que tudo"</p>
+          <div class="vault-photo-slot">
+            <span>espaço reservado para a nossa foto</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUPONS -->
+    <section class="block" id="cupons">
+      <h2 class="block-title">vale-presentes do amor</h2>
+      <p class="block-sub">sorteie um cupom. resgatável a qualquer hora, sem prazo de validade.</p>
+
+      <div class="ticket" id="ticket">
+        <div class="ticket-main">
+          <span class="ticket-eyebrow">vale por</span>
+          <div class="coupon-display" id="couponDisplay">um sorteio surpresa</div>
+        </div>
+        <div class="ticket-perf" aria-hidden="true"></div>
+        <div class="ticket-stub">
+          <span>L</span>
+          <span>&amp;</span>
+          <span>H</span>
+        </div>
+      </div>
+      <div class="coupon-action">
+        <button class="btn-primary" onclick="generateCoupon()"><span>sortear cupom</span></button>
+      </div>
+    </section>
+
+    <!-- MOTIVOS -->
+    <section class="block" id="motivos">
+      <h2 class="block-title">por que você</h2>
+      <div class="reasons-grid">
+        <article class="reason-card">
+          <span class="reason-mark">01</span>
+          <h3>o seu jeito</h3>
+          <p>Do jeito que você entra numa sala e some com qualquer peso que eu esteja carregando. Não tem uma versão sua que eu não escolheria de novo.</p>
+        </article>
+        <article class="reason-card">
+          <span class="reason-mark">02</span>
+          <h3>o seu carinho</h3>
+          <p>O tipo de carinho que é bom só de estar por perto, do jeitinho que você cuida de mim.</p>
+        </article>
+        <article class="reason-card">
+          <span class="reason-mark">03</span>
+          <h3>o seu sorriso</h3>
+          <p>Ainda é a minha parte favorita do dia. Sério, qualquer dia ruim perde a graça na hora que você sorri.</p>
+        </article>
+   >
+      </div>
+    </section>
+
+    <!-- MAPA AFETIVO -->
+    <section class="block" id="mapa">
+      <h2 class="block-title">nosso mapa</h2>
+      <p class="block-sub">os lugares que já são um pouco a nossa cara.</p>
+      <div class="map-grid">
+        <div class="map-pin">
+          <span class="map-pin-icon">📍</span>
+          <h3>o shopping</h3>
+          <p>onde começou</p>
+        </div>
+        <div class="map-pin">
+          <span class="map-pin-icon">🌊</span>
+          <h3>a praia</h3>
+          <p>a nossa primeira viagem</p>
+        </div>
+        <div class="map-pin">
+          <span class="map-pin-icon">🥩</span>
+          <h3>a Tábua</h3>
+          <p>o jantar que ficou marcado até hoje </p>
+        </div>
+        <div class="map-pin">
+          <span class="map-pin-icon">🏡</span>
+          <h3>a chácara</h3>
+          <p>onde passamos a virada do ano</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LINHA DO TEMPO -->
+    <section class="block" id="historia">
+      <h2 class="block-title">nossos capítulos</h2>
+      <div class="timeline">
+        <div class="timeline-item side-left">
+          <div class="timeline-card">
+            <span class="timeline-tag">capítulo 01</span>
+            <h3>o encontro no shopping</h3>
+            <p>Foi ali, sem nenhum plano de que aquilo fosse virar algo que temos até hoje. </p>
+          </div>
+        </div>
+        <div class="timeline-item side-right">
+          <div class="timeline-card">
+            <span class="timeline-tag">capítulo 02</span>
+            <h3>a praia</h3>
+            <p>Sol, tempo livre e a sensação boa de não ter pressa nenhuma pra voltar pra rotina. Uma das viagens que eu guardo com mais carinho.</p>
+          </div>
+        </div>
+        <div class="timeline-item side-left">
+          <div class="timeline-card">
+            <span class="timeline-tag">capítulo 03</span>
+            <h3>a picanha na Tábua</h3>
+            <p>Devia ser só um jantar "chique" entre a gente porém virou algo que nunca esquecerei.</p>
+          </div>
+        </div>
+        <div class="timeline-item side-right">
+          <div class="timeline-card">
+            <span class="timeline-tag">capítulo 04</span>
+            <h3>a virada na chácara</h3>
+            <p>Ano novo dormindo na chácara, longe de tudo, longe da minha família pela primeira vez e com o amor da minha vida comigo.</p>
+          </div>
+        </div>
+        <div class="timeline-item side-left">
+          <div class="timeline-card timeline-card-final">
+            <span class="timeline-tag">capítulo 05</span>
+            <h3>hoje: dois anos e um mês</h3>
+            <p>E aqui estamos. Dois anos e um mês que passaram rápido demais e ao mesmo tempo parecem ter sempre existido.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CARTA -->
+    <section class="block" id="carta">
+      <h2 class="block-title">uma carta</h2>
+      <p class="block-sub">toque no selo para abrir.</p>
+
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-seal">❤</div>
+        </div>
+        <div class="letter">
+          <p class="letter-eyebrow">para você, Henry</p>
+          <h3>dois anos e um mês, e ainda escolho você</h3>
+          <p>Tem gente que passa a vida procurando um lugar onde se sinta em casa. Eu encontrei o meu em você — em um shopping, num dia qualquer, sem nenhum aviso de que ali começava tudo.</p>
+          <p>Desde então já foi praia, foi picanha na Tábua, shopping, foi virada de ano na chácara várias coisas que nunca fiz com ninguém fiz com vc tudo a primeira vez</p>
+          <p>Não foi sempre perfeito, mas foi sempre nosso. E se depender de mim, vai continuar sendo — hoje, amanhã, e nos próximos aniversários que a gente ainda vai comemorar juntos.</p>
+          <p>Você é a pessoa que eu sempre amo e sempre amarei, você é meu orgulho e minha razão de viver.</p>
+          <p class="letter-signature">com todo o meu amor, Letícia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="block" id="quiz">
+      <h2 class="block-title">quanto você presta atenção</h2>
+      <div class="panel quiz-panel">
+        <div id="quiz-body">
+          <div class="quiz-question" id="quiz-question">carregando…</div>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-feedback" id="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 240 40" preserveAspectRatio="xMidYMid meet">
+        <path class="ornament-line" d="M0,20 C40,20 40,6 60,6 C80,6 80,20 100,20 L108,20" />
+        <path class="ornament-heart" d="M120,28 C112,20 108,12 113,7 C117,3 122,5 120,10 C118,5 123,3 127,7 C132,12 128,20 120,28 Z" />
+        <path class="ornament-line" d="M132,20 L140,20 C160,20 160,6 180,6 C200,6 200,20 240,20" />
+      </svg>
+    </div>
+
+    <footer>feito com todo carinho pra comemorar os nossos dois anos e um mês.</footer>
+
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   1. CONTADOR DE TEMPO
+   ========================================================================== */
+// Início do namoro: 06/09/2024
+const startDate = new Date(2024, 8, 6, 0, 0, 0);
+
+function updateTimer() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = String(days).padStart(3, "0");
+  document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+  document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+  document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+/* ==========================================================================
+   1b. PRÓXIMO ANIVERSÁRIO
+   ========================================================================== */
+function updateNextAnniversary() {
+  const el = document.getElementById("nextAnniversaryText");
+  if (!el) return;
+
+  const now = new Date();
+  let next = new Date(now.getFullYear(), startDate.getMonth(), startDate.getDate());
+  if (next <= now) next = new Date(now.getFullYear() + 1, startDate.getMonth(), startDate.getDate());
+
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const daysLeft = Math.ceil((next - now) / msPerDay);
+  const yearsCompleted = next.getFullYear() - startDate.getFullYear();
+
+  if (daysLeft === 0) {
+    el.textContent = `hoje é o dia! ${yearsCompleted}º aniversário 🎉`;
+  } else if (daysLeft === 1) {
+    el.textContent = `falta 1 dia para o ${yearsCompleted}º aniversário`;
+  } else {
+    el.textContent = `faltam ${daysLeft} dias para o ${yearsCompleted}º aniversário`;
+  }
+}
+
+updateNextAnniversary();
+setInterval(updateNextAnniversary, 1000 * 60 * 60);
+
+/* ==========================================================================
+   2. TELA DE INTRODUÇÃO
+   ========================================================================== */
+const introScreen = document.getElementById("intro-screen");
+const startBtn = document.getElementById("startBtn");
+const introEmbers = document.getElementById("introEmbers");
+
+if (introEmbers) {
+  const emberCount = 18;
+  for (let i = 0; i < emberCount; i++) {
+    const ember = document.createElement("span");
+    ember.classList.add("ember");
+    ember.style.left = Math.random() * 100 + "%";
+    ember.style.setProperty("--drift", (Math.random() * 60 - 30) + "px");
+    ember.style.animationDuration = 4 + Math.random() * 5 + "s";
+    ember.style.animationDelay = Math.random() * 6 + "s";
+    introEmbers.appendChild(ember);
+  }
+}
+
+startBtn.addEventListener("click", () => {
+  introScreen.style.opacity = "0";
+  setTimeout(() => { introScreen.style.display = "none"; }, 700);
+
+  if (typeof confetti === "function") {
+    confetti({ particleCount: 100, spread: 70, colors: ["#b8142f", "#e8344f", "#f4e9e4"], origin: { y: 0.6 } });
+  }
+});
+
+/* ==========================================================================
+   3. CHUVA DE PÉTALAS
+   ========================================================================== */
+const petalsBtn = document.getElementById("petalsToggleBtn");
+let petalsInterval = null;
+
+function createPetal() {
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.innerHTML = "🌹";
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = Math.random() * 3 + 3 + "s";
+  petal.style.fontSize = Math.random() * 10 + 15 + "px";
+  document.body.appendChild(petal);
+  setTimeout(() => petal.remove(), 6000);
+}
+
+petalsBtn.addEventListener("click", () => {
+  const active = petalsInterval !== null;
+  if (active) {
+    clearInterval(petalsInterval);
+    petalsInterval = null;
+    petalsBtn.setAttribute("aria-pressed", "false");
+  } else {
+    petalsInterval = setInterval(createPetal, 300);
+    petalsBtn.setAttribute("aria-pressed", "true");
+  }
+});
+
+/* ==========================================================================
+   4. COFRE SECRETO
+   ========================================================================== */
+const VAULT_PASS = "6767";
+let currentCode = "";
+
+function pressKey(num) {
+  if (currentCode.length < 4) {
+    currentCode += num;
+    updateVaultDisplay();
+  }
+}
+
+function clearVault() {
+  currentCode = "";
+  updateVaultDisplay();
+  document.getElementById("vaultMessage").textContent = "";
+}
+
+function updateVaultDisplay() {
+  const display = document.getElementById("vaultDisplay");
+  const filled = currentCode.split("").join(" ");
+  const remaining = "‒ ".repeat(4 - currentCode.length).trim();
+  display.textContent = [filled, remaining].filter(Boolean).join(" ");
+}
+
+function unlockVault() {
+  const msg = document.getElementById("vaultMessage");
+  if (currentCode === VAULT_PASS) {
+    document.getElementById("vaultLocked").style.display = "none";
+    document.getElementById("vaultUnlocked").style.display = "block";
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 150, spread: 80, colors: ["#b8142f", "#e8344f", "#f4e9e4"] });
+    }
+  } else {
+    msg.textContent = "senha incorreta, tente de novo.";
+    const display = document.getElementById("vaultDisplay");
+    display.classList.add("shake");
+    setTimeout(() => display.classList.remove("shake"), 400);
+    clearVault();
+  }
+}
+
+/* ==========================================================================
+   5. CUPONS
+   ========================================================================== */
+const coupons = [
+  "🌆 Vale um rolê surpresa, escolhido por mim.",
+  "🥟 Vale um pastel e um caldo de cana na feira, só nós dois.",
+  "💋 Vale um beijo demorado, na hora e no lugar que você escolher.",
+  "🔥 Vale uma noite só nossa, sem pressa e sem hora pra acabar.",
+  "🥩 Vale escolher o próximo jantar,sem discussão.",
+  "🛋️ Vale um dia inteiro de preguiça e carinho, sem compromisso nenhum.",
+  "🍆 Vale a Letícia comer seu cu"
+];
+
+function generateCoupon() {
+  const display = document.getElementById("couponDisplay");
+  const randomCoupon = coupons[Math.floor(Math.random() * coupons.length)];
+
+  display.style.opacity = 0;
+  setTimeout(() => {
+    display.textContent = randomCoupon;
+    display.style.opacity = 1;
+    display.classList.remove("pop");
+    void display.offsetWidth;
+    display.classList.add("pop");
+  }, 200);
+
+  if (typeof confetti === "function") {
+    confetti({ particleCount: 50, spread: 50, colors: ["#b8142f", "#e8344f", "#f4e9e4"] });
+  }
+}
+
+/* ==========================================================================
+   6. GALERIA / CARROSSEL
+   ========================================================================== */
+const slides = document.querySelectorAll(".carousel-slide");
+const dots = document.querySelectorAll(".dot");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+let currentSlide = 0;
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.remove("active");
+    if (dots[i]) dots[i].classList.remove("active");
+  });
+  currentSlide = (index + slides.length) % slides.length;
+  slides[currentSlide].classList.add("active");
+  if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+}
+
+if (prevBtn && nextBtn) {
+  prevBtn.addEventListener("click", () => showSlide(currentSlide - 1));
+  nextBtn.addEventListener("click", () => showSlide(currentSlide + 1));
+}
+
+dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));
+
+// suporte a swipe (toque) no carrossel
+const carouselContainer = document.querySelector(".carousel-container");
+if (carouselContainer) {
+  let touchStartX = 0;
+  carouselContainer.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  carouselContainer.addEventListener("touchend", (e) => {
+    const touchEndX = e.changedTouches[0].screenX;
+    const delta = touchEndX - touchStartX;
+    if (Math.abs(delta) > 40) {
+      showSlide(currentSlide + (delta < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   7. ENVELOPE / CARTA
+   ========================================================================== */
+const envelopeWrapper = document.getElementById("envelopeWrapper");
+if (envelopeWrapper) {
+  envelopeWrapper.addEventListener("click", () => {
+    envelopeWrapper.classList.toggle("open");
+  });
+}
+
+/* ==========================================================================
+   8. QUIZ
+   ========================================================================== */
+const quizData = [
+  {
+    question: "Onde foi o nosso primeiro encontro?",
+    options: ["No shopping", "No parque", "Em um restaurante", "No cinema"],
+    correct: 0
+  },
+  {
+    question: "Quem disse \"eu te amo\" primeiro?",
+    options: ["Letícia", "Henry", "Os dois juntos", "Ainda não dissemos"],
+    correct: 1
+  },
+  {
+    question: "Qual é a comida favorita do casal?",
+    options: ["Pizza", "Comida japonesa", "Lanche", "Churrasco"],
+    correct: 2
+  },
+  {
+    question: "Onde vocês dormiram na última virada de ano?",
+    options: ["Em casa", "Na praia", "Na chácara", "Em um hotel"],
+    correct: 2
+  },
+  {
+    question: "Onde é o jantar de picanha inesquecível?",
+    options: ["Na Tábua", "No Outback", "Em casa", "Num rodízio qualquer"],
+    correct: 0
+  }
+];
+
+let currentQuizIndex = 0;
+let quizScore = 0;
+
+function loadQuizQuestion() {
+  const questionEl = document.getElementById("quiz-question");
+  const optionsEl = document.getElementById("quiz-options");
+  const feedbackEl = document.getElementById("quiz-feedback");
+
+  if (!questionEl || !optionsEl) return;
+
+  feedbackEl.textContent = "";
+  optionsEl.innerHTML = "";
+
+  if (currentQuizIndex < quizData.length) {
+    const q = quizData[currentQuizIndex];
+    questionEl.textContent = q.question;
+
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement("button");
+      btn.classList.add("quiz-opt-btn");
+      btn.textContent = opt;
+      btn.onclick = () => selectQuizAnswer(idx);
+      optionsEl.appendChild(btn);
+    });
+  } else {
+    questionEl.textContent = `fim do teste — ${quizScore} de ${quizData.length} certas.`;
+    optionsEl.innerHTML = `
+      <p style="margin-top: 1rem; color: var(--muted); grid-column: 1 / -1;">
+        pontuação nenhuma muda o quanto a gente se ama. ❤️
+      </p>
+      <button class="btn-primary" onclick="restartQuiz()" style="margin-top: 1.2rem; grid-column: 1 / -1; justify-self: center;">refazer</button>
+    `;
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 100, spread: 70, colors: ["#b8142f", "#e8344f", "#f4e9e4"] });
+    }
+  }
+}
+
+function selectQuizAnswer(selectedIdx) {
+  const q = quizData[currentQuizIndex];
+  const feedbackEl = document.getElementById("quiz-feedback");
+  const btns = document.querySelectorAll(".quiz-opt-btn");
+
+  btns.forEach(btn => btn.disabled = true);
+
+  if (selectedIdx === q.correct) {
+    quizScore++;
+    btns[selectedIdx].style.background = "rgba(46, 204, 113, 0.35)";
+    btns[selectedIdx].style.borderColor = "#2ecc71";
+    feedbackEl.textContent = "certa resposta.";
+    feedbackEl.style.color = "#2ecc71";
+  } else {
+    btns[selectedIdx].style.background = "rgba(232, 52, 79, 0.35)";
+    btns[selectedIdx].style.borderColor = "var(--red-bright)";
+    btns[q.correct].style.background = "rgba(46, 204, 113, 0.35)";
+    feedbackEl.textContent = `quase — era "${q.options[q.correct]}".`;
+    feedbackEl.style.color = "var(--red-bright)";
+  }
+
+  setTimeout(() => {
+    currentQuizIndex++;
+    loadQuizQuestion();
+  }, 1800);
+}
+
+function restartQuiz() {
+  currentQuizIndex = 0;
+  quizScore = 0;
+  loadQuizQuestion();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadQuizQuestion();
+});
+
+/* ==========================================================================
+   9. NAVEGAÇÃO LATERAL
+   ========================================================================== */
+const sideNavLinks = document.querySelectorAll(".side-nav a");
+if (sideNavLinks.length) {
+  const idToLink = {};
+  sideNavLinks.forEach(link => {
+    idToLink[link.getAttribute("href").slice(1)] = link;
+  });
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = idToLink[entry.target.id];
+      if (!link) return;
+      if (entry.isIntersecting) {
+        sideNavLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+      }
+    });
+  }, { rootMargin: "-45% 0px -45% 0px" });
+
+  Object.keys(idToLink).forEach(id => {
+    const target = document.getElementById(id);
+    if (target) navObserver.observe(target);
+  });
+}
+
+</script>
+</body>
+</html>
